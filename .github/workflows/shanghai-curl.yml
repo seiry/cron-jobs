@@ -1,0 +1,16 @@
+name: shanghai scheduled Curl
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/10 * * * *'  # 每十分钟触发一次任务
+
+jobs:
+  run_task:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run curl command
+        run: |
+          content=$(curl -s https://shanghai-happy-place.vercel.app/api/secjob?key=19890604)
+          echo "$content"
