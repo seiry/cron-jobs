@@ -12,5 +12,7 @@ jobs:
     steps:
       - name: Run curl command
         run: |
-          content=$(curl -s https://shanghai-happy-place.vercel.app/api/secjob?key=19890604)
+          content=$(curl -s $URL)
           echo "$content"
+        env:
+          URL: ${{ secrets.Shanghai_Happy_Url }}
