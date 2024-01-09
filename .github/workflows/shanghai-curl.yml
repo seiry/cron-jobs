@@ -3,7 +3,7 @@ name: shanghai scheduled Curl
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'  # 每十分钟触发一次任务
+    - cron: '*/5 * * * *'
 
 jobs:
   run_task:
@@ -12,7 +12,11 @@ jobs:
     steps:
       - name: Run curl command
         run: |
-          content=$(curl -s $URL)
+          content=$(curl -sL $URL)
           echo "$content"
+          if ! [[ "$content" =~ ^[0-9]+$ ]]; then
+            echo "The output may be wrong."
+            exit 1
+          fi
         env:
           URL: ${{ secrets.Shanghai_Happy_Url }}
